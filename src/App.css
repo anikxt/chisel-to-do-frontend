@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.boardBar {
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  border-right-width: 0px;
+  border-left-width: 0px;
+}
+
+.board {
+  border-right: 1px solid black;
+  padding: 0.5em;
+  min-width: 5em;
+}
+
+.addBoardBtn,
+.deleteBoardBtn {
+  margin-left: 20px;
+  padding: 1px 3px;
+}
+
+.divBoardSubsection {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+.divNewTasks,
+.divCompletedTasks,
+.divBoardView {
+  height: 100%;
+  padding: 2em;
+}
+
+.divNewTasks {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.divCompletedTasks {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.divBoardView {
+  border: 1px solid black;
+  flex: 1;
+  text-align: center;
+}
