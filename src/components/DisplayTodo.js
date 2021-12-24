@@ -36,7 +36,7 @@ export default function DisplayTodo({
       )}
       <input
         type="checkbox"
-        checked={todo.completed}
+        checked={todo.isComplete}
         onChange={() => handleToggleTodo(todo.id)}
       />
       <button

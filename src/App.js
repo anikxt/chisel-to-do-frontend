@@ -1,54 +1,83 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import DisplayTodo from './components/DisplayTodo';
-import useBoards from './hooks/useBoards';
 import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 import axios from 'axios';
 
-const DEFAULT_BOARD = { id: uuidv4(), name: 'Board 1' };
-const DEFAULT_TODO = {
-  id: uuidv4(),
-  name: 'todos',
-  completed: false,
-  boardId: DEFAULT_BOARD.id,
-};
-
 export default function App() {
-  const [boards, setBoards] = useState([DEFAULT_BOARD]);
-  const [selectedBoardId, setSelectedBoardId] = useState(boards?.[0]?.id);
-  const [todos, setTodos] = useState([DEFAULT_TODO]);
+  const [boards, setBoards] = useState([]);
+  const [selectedBoardId, setSelectedBoardId] = useState(
+    parseInt(localStorage.getItem('selectedBoardId') || '0')
+  );
+  const [todos, setTodos] = useState([]);
   const selectedBoard = boards.find((board) => board.id === selectedBoardId);
   const selectedTodos = todos.filter(
     (todo) => todo.boardId === selectedBoardId
   );
 
+  useEffect(() => {
+    localStorage.setItem('selectedBoardId', selectedBoardId);
+  }, [selectedBoardId]);
+
   const todoNameRef = useRef();
 
-  function handleAddBoard() {
-    const id = uuidv4();
-    const newBoard = { id, name: id };
-    setBoards((prevBoards) => {
-      return [...prevBoards, newBoard];
+  useEffect(() => {
+    axios.get('http://localhost:1337/board').then((res) => {
+      setBoards(res.data);
     });
-    setSelectedBoardId(newBoard.id);
-  }
+    axios.get('http://localhost:1337/todo').then((res) => {
+      setTodos(res.data);
+    });
+  }, []);
 
-  function handleDeleteBoard(id) {
-    let newBoards = [...boards];
-    newBoards = newBoards.filter((board) => board.id !== id);
-    setBoards(newBoards);
-  }
+  const handleAddBoard = async () => {
+    try {
+      const id = uuidv4();
+      const resp = await axios.post('http://localhost:1337/board', {
+        name: id,
+      });
+      const newBoard = resp.data;
+      setBoards((prevBoards) => {
+        return [...prevBoards, newBoard];
+      });
+      setSelectedBoardId(newBoard.id);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  function handleAddTodo() {
-    const name = todoNameRef.current.value;
-    if (name === '') return;
-    const newTodos = [
-      ...todos,
-      { name, completed: false, id: uuidv4(), boardId: selectedBoardId },
-    ];
-    todoNameRef.current.value = null;
-    setTodos(newTodos);
-  }
+  const handleDeleteBoard = async (id) => {
+    try {
+      let newBoards = [...boards];
+      newBoards = newBoards.filter((board) => board.id !== id);
+      await axios.delete('http://localhost:1337/board', {
+        data: {
+          id: parseInt(id),
+        },
+      });
+      setBoards(newBoards);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleAddTodo = async () => {
+    try {
+      const name = todoNameRef.current.value;
+      if (name === '') return;
+
+      todoNameRef.current.value = null;
+      const resp = await axios.post('http://localhost:1337/todo', {
+        name: name,
+        isComplete: false,
+        boardId: selectedBoardId,
+      });
+      const newTodos = [...todos, resp.data];
+      setTodos(newTodos);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   function handleSubmit(e) {
     handleAddTodo();
@@ -59,24 +88,48 @@ export default function App() {
     todoNameRef.current.value = null;
   }
 
-  function handleToggleTodo(id) {
-    const newTodos = [...todos];
-    const todo = newTodos.find((todo) => todo.id === id);
-    todo.completed = !todo.completed;
-    setTodos(newTodos);
-  }
+  const handleToggleTodo = async (id) => {
+    try {
+      const newTodos = [...todos];
+      const todo = newTodos.find((todo) => todo.id === id);
+      todo.isComplete = !todo.isComplete;
+      console.log(todo.isComplete);
+      await axios.put('http://localhost:1337/todo', {
+        ...todo,
+      });
+      setTodos(newTodos);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  function handleClearTodo(id) {
-    const newTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(newTodos);
-  }
+  const handleClearTodo = async (id) => {
+    try {
+      const newTodos = todos.filter((todo) => todo.id !== id);
+      await axios.delete('http://localhost:1337/todo', {
+        data: {
+          id: parseInt(id),
+        },
+      });
+      setTodos(newTodos);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  function handleUpdateTodo(id, text) {
-    const newTodos = [...todos];
-    const todo = newTodos.find((todo) => todo.id === id);
-    todo.name = text;
-    setTodos(newTodos);
-  }
+  const handleUpdateTodo = async (id, text) => {
+    try {
+      const newTodos = [...todos];
+      const todo = newTodos.find((todo) => todo.id === id);
+      todo.name = text;
+      await axios.put('http://localhost:1337/todo', {
+        ...todo,
+      });
+      setTodos(newTodos);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -90,7 +143,7 @@ export default function App() {
                   setSelectedBoardId(board.id);
                 }}
               >
-                {board.name} {board.id === selectedBoardId && '[ ACTIVE ]'}
+                Board {index + 1} {board.id === selectedBoardId && '[ ACTIVE ]'}
               </span>
               <button
                 className="deleteBoardBtn"
@@ -113,7 +166,7 @@ export default function App() {
             <h3>New Tasks</h3>
             {selectedTodos
               .filter((todo) => {
-                return !todo.completed;
+                return !todo.isComplete;
               })
               .map((todo) => {
                 return (
@@ -143,7 +196,7 @@ export default function App() {
             <h3>Completed Tasks</h3>
             {selectedTodos
               .filter((todo) => {
-                return todo.completed;
+                return todo.isComplete;
               })
               .map((todo) => {
                 return (
