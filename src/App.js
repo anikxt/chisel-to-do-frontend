@@ -3,19 +3,34 @@ import DisplayTodo from './components/DisplayTodo';
 import useBoards from './hooks/useBoards';
 import { v4 as uuidv4 } from 'uuid';
 import './App.css';
+import axios from 'axios';
+
+const DEFAULT_BOARD = { id: uuidv4(), name: 'Board 1' };
+const DEFAULT_TODO = {
+  id: uuidv4(),
+  name: 'todos',
+  completed: false,
+  boardId: DEFAULT_BOARD.id,
+};
 
 export default function App() {
-  const [boards, setBoards] = useBoards([{ id: uuidv4(), todos: [] }]);
+  const [boards, setBoards] = useState([DEFAULT_BOARD]);
   const [selectedBoardId, setSelectedBoardId] = useState(boards?.[0]?.id);
+  const [todos, setTodos] = useState([DEFAULT_TODO]);
   const selectedBoard = boards.find((board) => board.id === selectedBoardId);
+  const selectedTodos = todos.filter(
+    (todo) => todo.boardId === selectedBoardId
+  );
+
   const todoNameRef = useRef();
 
   function handleAddBoard() {
+    const id = uuidv4();
+    const newBoard = { id, name: id };
     setBoards((prevBoards) => {
-      const newBoard = { id: uuidv4(), todos: [] };
-      setSelectedBoardId(newBoard.id);
       return [...prevBoards, newBoard];
     });
+    setSelectedBoardId(newBoard.id);
   }
 
   function handleDeleteBoard(id) {
@@ -27,11 +42,12 @@ export default function App() {
   function handleAddTodo() {
     const name = todoNameRef.current.value;
     if (name === '') return;
-    const newBoards = [...boards];
-    const board = newBoards.find((board) => board.id === selectedBoardId);
-    board.todos = [...board.todos, { name, completed: false, id: uuidv4() }];
+    const newTodos = [
+      ...todos,
+      { name, completed: false, id: uuidv4(), boardId: selectedBoardId },
+    ];
     todoNameRef.current.value = null;
-    setBoards(newBoards);
+    setTodos(newTodos);
   }
 
   function handleSubmit(e) {
@@ -44,26 +60,22 @@ export default function App() {
   }
 
   function handleToggleTodo(id) {
-    const newBoards = [...boards];
-    const board = newBoards.find((board) => board.id === selectedBoardId);
-    const todo = board.todos.find((todo) => todo.id === id);
+    const newTodos = [...todos];
+    const todo = newTodos.find((todo) => todo.id === id);
     todo.completed = !todo.completed;
-    setBoards(newBoards);
+    setTodos(newTodos);
   }
 
   function handleClearTodo(id) {
-    const newBoards = [...boards];
-    const board = newBoards.find((board) => board.id === selectedBoardId);
-    board.todos = board.todos.filter((todo) => todo.id !== id);
-    setBoards(newBoards);
+    const newTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(newTodos);
   }
 
   function handleUpdateTodo(id, text) {
-    const newBoards = [...boards];
-    const board = newBoards.find((board) => board.id === selectedBoardId);
-    const todo = board.todos.find((todo) => todo.id === id);
+    const newTodos = [...todos];
+    const todo = newTodos.find((todo) => todo.id === id);
     todo.name = text;
-    setBoards(newBoards);
+    setTodos(newTodos);
   }
 
   return (
@@ -78,7 +90,7 @@ export default function App() {
                   setSelectedBoardId(board.id);
                 }}
               >
-                Board {index + 1} {board.id === selectedBoardId && '[ ACTIVE ]'}
+                {board.name} {board.id === selectedBoardId && '[ ACTIVE ]'}
               </span>
               <button
                 className="deleteBoardBtn"
@@ -99,7 +111,7 @@ export default function App() {
         <div className="divBoardSubsection">
           <div className="divNewTasks">
             <h3>New Tasks</h3>
-            {selectedBoard.todos
+            {selectedTodos
               .filter((todo) => {
                 return !todo.completed;
               })
@@ -129,7 +141,7 @@ export default function App() {
 
           <div className="divCompletedTasks">
             <h3>Completed Tasks</h3>
-            {selectedBoard.todos
+            {selectedTodos
               .filter((todo) => {
                 return todo.completed;
               })
