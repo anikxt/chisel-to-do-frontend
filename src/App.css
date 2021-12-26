@@ -143,10 +143,7 @@ span.IconActiveState:hover {
   font-size: 18px;
   margin-left: 10px;
   vertical-align: middle;
-  padding-right: 2px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 2px;
+  padding: 5px 2px 5px 2px;
 }
 
 .divDeleteBoardButton:hover {
@@ -213,10 +210,7 @@ span.IconActiveState:hover {
 }
 
 .divActiveTask input {
-  margin-top: 20px;
-  margin-left: 18px;
-  margin-bottom: 20px;
-  margin-right: 14px;
+  margin: 20px 14px 20px 18px;
 }
 
 div.divBoardAddSection input {
@@ -274,17 +268,11 @@ div.divBoardAddSection input:focus {
 }
 
 .divButtonAdd i {
-  padding-right: 2px;
-  padding-top: 5px;
-  padding-bottom: 4px;
-  padding-left: 2px;
+  padding: 5px 2px 4px 2px;
 }
 
 .divButtonClear i {
-  padding-right: 2px;
-  padding-top: 5px;
-  padding-bottom: 4px;
-  padding-left: 2px;
+  padding: 5px 2px 4px 2px;
 }
 
 .divButtonAdd:hover {
