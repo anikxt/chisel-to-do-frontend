@@ -7,10 +7,10 @@ export default function DisplayTodo({
   handleClearTodo,
   showCompleteTodo,
 }) {
-  const [edit, setEdit] = useState(false);
+  const [editTodo, setEditTodo] = useState(false);
 
   function handleSubmit(e) {
-    setEdit(false);
+    setEditTodo(false);
     e.preventDefault();
   }
 
@@ -24,7 +24,12 @@ export default function DisplayTodo({
   }
   return (
     <div>
-      {edit ? (
+      <input
+        type="checkbox"
+        checked={todo.isComplete}
+        onChange={() => handleToggleTodo(todo.id)}
+      />
+      {editTodo ? (
         <form onSubmit={handleSubmit}>
           <input
             onChange={(e) => handleUpdateTodo(todo.id, e.target.value)}
@@ -34,14 +39,9 @@ export default function DisplayTodo({
       ) : (
         <span>{todo.name}</span>
       )}
-      <input
-        type="checkbox"
-        checked={todo.isComplete}
-        onChange={() => handleToggleTodo(todo.id)}
-      />
       <button
         onClick={() => {
-          setEdit(!edit);
+          setEditTodo(!editTodo);
         }}
       >
         Edit
