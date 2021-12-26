@@ -47,4 +47,4 @@ https://github.com/anikxt/chisel-to-do-backend
 
 # Proof of Work:
 
-![alt text](./Chisel-proof-of-work.png)
+![alt text](./chisel-proof-of-work.png)
