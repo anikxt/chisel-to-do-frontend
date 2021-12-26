@@ -141,13 +141,8 @@ span.IconActiveState:hover {
   border: none;
   color: rgb(170, 168, 168);
   font-size: 18px;
-
-  /* background-color: rgb(170, 168, 168); */
   margin-left: 10px;
   vertical-align: middle;
-}
-
-.divDeleteBoardButton i {
   padding-right: 2px;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -279,7 +274,6 @@ div.divBoardAddSection input:focus {
 }
 
 .divButtonAdd i {
-  /* font-size: 1.2em; */
   padding-right: 2px;
   padding-top: 5px;
   padding-bottom: 4px;
@@ -327,7 +321,6 @@ div.divBoardAddSection input:focus {
 div.divActiveTask {
   margin-top: 10px;
   margin-bottom: 10px;
-  /* border: 1px solid black; */
   width: 435px;
   height: 60px;
   border-radius: 10px;
@@ -368,7 +361,6 @@ div.divActiveTask {
 .divCompletedTask {
   margin-top: 10px;
   margin-bottom: 10px;
-  /* border: 1px solid black; */
   width: 435px;
   height: 60px;
   border-radius: 10px;
