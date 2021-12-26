@@ -3,8 +3,9 @@ import DisplayTodo from './components/DisplayTodo';
 import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 import axios from 'axios';
+import logo from './chisel-labs.png';
 
-export default function App() {
+const App = () => {
   const [boards, setBoards] = useState([]);
   const [selectedBoardId, setSelectedBoardId] = useState(
     parseInt(localStorage.getItem('selectedBoardId') || '0')
@@ -51,6 +52,11 @@ export default function App() {
       let newBoards = [...boards];
       newBoards = newBoards.filter((board) => board.id !== id);
       await axios.delete('http://localhost:1337/board', {
+        data: {
+          id: parseInt(id),
+        },
+      });
+      await axios.delete('http://localhost:1337/todo', {
         data: {
           id: parseInt(id),
         },
@@ -133,83 +139,114 @@ export default function App() {
 
   return (
     <>
-      <h1>TODO APP</h1>
-      <div className="boardBar">
-        {boards.map((board, index) => {
-          return (
-            <div className="board">
-              <span
-                onClick={() => {
-                  setSelectedBoardId(board.id);
-                }}
-              >
-                Board {index + 1} {board.id === selectedBoardId && '[ ACTIVE ]'}
-              </span>
-              <button
-                className="deleteBoardBtn"
-                onClick={() => {
-                  handleDeleteBoard(board.id);
-                }}
-              >
-                Delete
-              </button>
-            </div>
-          );
-        })}
-        <button className="addBoardBtn" onClick={handleAddBoard}>
-          Add Board
-        </button>
+      <div className="todoHeader">
+        <div className="todoHeaderName">to-do list</div>
+        <div className="todoHeaderDot">.</div>
+        <div className="todoHeaderLogo">
+          <img src={logo} width="35" height="35" alt="Chisel Labs"></img>
+        </div>
+        <span>Chisel</span>
       </div>
-      {selectedBoard && (
-        <div className="divBoardSubsection">
-          <div className="divNewTasks">
-            <h3>New Tasks</h3>
-            {selectedTodos
-              .filter((todo) => {
-                return !todo.isComplete;
-              })
-              .map((todo) => {
-                return (
-                  <DisplayTodo
-                    todo={todo}
-                    handleUpdateTodo={handleUpdateTodo}
-                    handleToggleTodo={handleToggleTodo}
-                    handleClearTodo={handleClearTodo}
-                    showCompleteTodo={true}
-                  />
-                );
-              })}
-          </div>
 
-          <div className="divBoardView">
-            <h3>Add tasks to Board</h3>
-            <form onSubmit={handleSubmit}>
-              <label>
-                <input ref={todoNameRef} type="text" />
-                <button onClick={handleAddTodo}>Add Todo</button>
-                <button onClick={handleClearBoardView}>Clear</button>
-              </label>
-            </form>
-          </div>
-
-          <div className="divCompletedTasks">
-            <h3>Completed Tasks</h3>
-            {selectedTodos
-              .filter((todo) => {
-                return todo.isComplete;
-              })
-              .map((todo) => {
-                return (
-                  <DisplayTodo
-                    todo={todo}
-                    showCompleteTodo={false}
-                    handleClearTodo={handleClearTodo}
-                  />
-                );
-              })}
+      <div className="divBoardSection">
+        <div className="divBoardLeftSection">
+          <button className="divAddBoardButton" onClick={handleAddBoard}>
+            <i className="fas fa-plus"></i> Create new board
+          </button>
+          <div className="divBoardListSection">
+            {boards.map((board, index) => {
+              return (
+                <div className="divBoardSubSection">
+                  <span
+                    onClick={() => {
+                      setSelectedBoardId(board.id);
+                    }}
+                    className="IconActiveState"
+                  >
+                    <i className="fas fa-clipboard"></i> Board {index + 1}{' '}
+                    {board.id === selectedBoardId && (
+                      <i class="fas fa-circle"></i>
+                    )}
+                  </span>
+                  <button
+                    className="divDeleteBoardButton"
+                    onClick={() => {
+                      handleDeleteBoard(board.id);
+                    }}
+                  >
+                    <i className="far fa-trash-alt"></i>
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </div>
-      )}
+        {selectedBoard && (
+          <div className="divBoardRightSection">
+            <div className="divBoardAddSectionBody">
+              <div className="divBoardAddSection">
+                <div className="divTaskHeader">Active Tasks</div>
+                <div className="divTaskHeaderLineOne"></div>
+                <form onSubmit={handleSubmit}>
+                  <label className="divAddInput">
+                    <input
+                      ref={todoNameRef}
+                      type="text"
+                      placeholder="Write a new task"
+                    />
+                    <button className="divButtonAdd" onClick={handleAddTodo}>
+                      <i class="fas fa-plus-square"></i>
+                    </button>
+                    <button
+                      className="divButtonClear"
+                      onClick={handleClearBoardView}
+                    >
+                      <i class="fa fa-backspace"></i>
+                    </button>
+                  </label>
+                </form>
+              </div>
+              <div>
+                {selectedTodos
+                  .filter((todo) => {
+                    return !todo.isComplete;
+                  })
+                  .map((todo) => {
+                    return (
+                      <DisplayTodo
+                        todo={todo}
+                        handleUpdateTodo={handleUpdateTodo}
+                        handleToggleTodo={handleToggleTodo}
+                        handleClearTodo={handleClearTodo}
+                        showCompleteTodo={true}
+                      />
+                    );
+                  })}
+              </div>
+            </div>
+
+            <div className="divCompletedTasksSection">
+              <div className="divTaskHeader">Completed Tasks</div>
+              <div className="divTaskHeaderLineTwo"></div>
+              {selectedTodos
+                .filter((todo) => {
+                  return todo.isComplete;
+                })
+                .map((todo) => {
+                  return (
+                    <DisplayTodo
+                      todo={todo}
+                      showCompleteTodo={false}
+                      handleClearTodo={handleClearTodo}
+                    />
+                  );
+                })}
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
-}
+};
+
+export default App;

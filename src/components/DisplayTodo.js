@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
+import './displayTodo.css';
 
-export default function DisplayTodo({
+const DisplayTodo = ({
   todo,
   handleUpdateTodo,
   handleToggleTodo,
   handleClearTodo,
   showCompleteTodo,
-}) {
+}) => {
   const [editTodo, setEditTodo] = useState(false);
 
   function handleSubmit(e) {
@@ -16,21 +17,27 @@ export default function DisplayTodo({
 
   if (!showCompleteTodo) {
     return (
-      <div>
+      <div className="divCompletedTask">
         <span>{todo.name}</span>
-        <button onClick={() => handleClearTodo(todo.id)}>Clear Task</button>
+        <button
+          className="divButtonRemove"
+          onClick={() => handleClearTodo(todo.id)}
+        >
+          <i class="fas fa-minus-circle"></i>
+        </button>
       </div>
     );
   }
   return (
-    <div>
+    <div className="divActiveTask">
       <input
+        class="ui checkbox"
         type="checkbox"
         checked={todo.isComplete}
         onChange={() => handleToggleTodo(todo.id)}
       />
       {editTodo ? (
-        <form onSubmit={handleSubmit}>
+        <form className="divEditTodo" onSubmit={handleSubmit}>
           <input
             onChange={(e) => handleUpdateTodo(todo.id, e.target.value)}
             value={todo.name}
@@ -40,13 +47,21 @@ export default function DisplayTodo({
         <span>{todo.name}</span>
       )}
       <button
+        className="divButtonEdit"
         onClick={() => {
           setEditTodo(!editTodo);
         }}
       >
-        Edit
+        <i className="fas fa-edit"></i>
       </button>
-      <button onClick={() => handleClearTodo(todo.id)}>Clear Task</button>
+      <button
+        className="divButtonDelete"
+        onClick={() => handleClearTodo(todo.id)}
+      >
+        <i className="far fa-trash-alt"></i>
+      </button>
     </div>
   );
-}
+};
+
+export default DisplayTodo;

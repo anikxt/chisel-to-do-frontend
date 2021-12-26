@@ -1,0 +1,77 @@
+.divButtonEdit,
+.divButtonDelete,
+.divButtonRemove {
+  border-radius: 5px;
+  border: none;
+  color: white;
+}
+
+.divButtonEdit {
+  /* background-color: #3498ff; */
+  margin-left: auto;
+  color: rgb(170, 168, 168);
+}
+
+.divButtonDelete {
+  /* background-color: #e53225; */
+  margin-right: 10px;
+  margin-left: 8px;
+  color: rgb(170, 168, 168);
+}
+
+.divButtonRemove {
+  color: rgb(170, 168, 168);
+  margin-left: auto;
+  margin-right: 15px;
+}
+
+.divButtonEdit i {
+  /* font-size: 1.2em; */
+  padding: 3px;
+  padding-bottom: 4px;
+  padding-left: 2px;
+}
+
+.divButtonDelete i {
+  padding: 3px;
+  padding-bottom: 4px;
+  padding-left: 2px;
+}
+
+.divButtonRemove i {
+  padding: 4px;
+  padding-bottom: px;
+  padding-left: 1px;
+  padding-right: 1px;
+  padding-top: 4px;
+}
+
+.divButtonEdit:hover {
+  background: rgb(47, 133, 204);
+  color: white;
+  transition: all 1s;
+}
+
+.divButtonDelete:hover {
+  background-color: #e53225;
+  color: white;
+  transition: all 1s;
+}
+
+.divButtonRemove:hover {
+  background: #0f9e16;
+  color: white;
+  transition: all 1s;
+}
+
+.divEditTodo input {
+  border: none;
+  outline: none;
+}
+
+.divEditTodo textarea:hover,
+.divEditTodo input:hover {
+  outline: none;
+  background: rgb(240, 240, 240);
+  transition: all 1s;
+}

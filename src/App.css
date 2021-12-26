@@ -1,53 +1,390 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: #edf4ff;
 }
 
-.boardBar {
+.todoHeader {
+  width: 100%;
+  height: 65px;
+  margin-left: 40px;
+  margin-top: 26px;
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 58px;
   display: flex;
   align-items: center;
-  border: 1px solid black;
-  border-right-width: 0px;
-  border-left-width: 0px;
+
+  color: #000000;
 }
 
-.board {
-  border-right: 1px solid black;
-  padding: 0.5em;
-  min-width: 5em;
+.todoHeaderLogo {
+  margin-top: 1px;
+  margin-right: 5px;
+  margin-left: 1430px;
 }
 
-.addBoardBtn,
-.deleteBoardBtn {
-  margin-left: 20px;
-  padding: 1px 3px;
+.todoHeader span {
+  font-size: 30px;
+  font-weight: 600;
 }
 
-.divBoardSubsection {
+.todoHeaderDot {
+  width: 31px;
+  height: 10px;
+  margin-bottom: 11px;
+
+  font-weight: 500;
+  font-size: 64px;
+  line-height: 87px;
   display: flex;
-  justify-content: center;
-  border: 1px solid black;
+  align-items: center;
+
+  color: #9900d9;
 }
 
-.divNewTasks,
-.divCompletedTasks,
-.divBoardView {
-  height: 100%;
-  padding: 2em;
+div.divBoardSection {
+  display: flex;
 }
 
-.divNewTasks {
-  border: 1px solid black;
-  text-align: center;
+.divBoardLeftSection {
+  width: 420px;
+  min-height: 600px;
+  margin-left: 60px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  background: #ffffff;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.06), 0px 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
 }
 
-.divCompletedTasks {
-  border: 1px solid black;
-  text-align: center;
+button.divAddBoardButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  width: 260px;
+  height: 50px;
+  margin-left: 20px;
+  margin-top: 26px;
+  background: #2f94fa;
+  border-radius: 10px;
+  color: #fff;
+  border: none;
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 22px;
 }
 
-.divBoardView {
-  border: 1px solid black;
-  flex: 1;
-  text-align: center;
+button.divAddBoardButton:hover {
+  background: #2276ca;
+  transition: all 1s;
+}
+
+div.divBoardSubSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+
+  width: 260px;
+  height: 42px;
+  margin-left: 11px;
+  margin-top: 1px;
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+div.divBoardListSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 260px;
+  margin-left: 20px;
+  margin-top: 20px;
+  background: #fff;
+  border-radius: 10px;
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 620;
+  font-size: 20px;
+  line-height: 22px;
+  cursor: pointer;
+}
+
+span.IconActiveState:hover {
+  border-radius: 5px;
+  background-color: rgb(226, 222, 222);
+  transition: all 1s;
+}
+
+.IconActiveState i {
+  padding-left: 2px;
+  margin-bottom: 4px;
+  font-size: 16px;
+  vertical-align: middle;
+  color: rgb(38, 182, 38);
+  transition: all 1s;
+}
+
+.divDeleteBoardButton {
+  border-radius: 5px;
+  border: none;
+  color: rgb(170, 168, 168);
+  font-size: 18px;
+
+  /* background-color: rgb(170, 168, 168); */
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.divDeleteBoardButton i {
+  padding-right: 2px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 2px;
+}
+
+.divDeleteBoardButton:hover {
+  background-color: #e53225;
+  color: white;
+  transition: all 1s;
+}
+
+.fas.fa-plus {
+  margin-right: 10px;
+  vertical-align: top;
+  margin-bottom: 2px;
+  margin-left: 2px;
+}
+
+.fas.fa-clipboard {
+  color: rgb(121, 120, 120);
+  padding-left: 0px;
+  margin-right: 7px;
+  font-size: 20px;
+  vertical-align: top;
+}
+
+.divBoardRightSection {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 32px;
+  margin-top: 64px;
+  width: 100%;
+  min-height: 600px;
+}
+
+.divBoardAddSectionBody {
+  margin-bottom: 45px;
+}
+
+.divTaskHeader {
+  width: 400px;
+  height: 44px;
+  left: 345px;
+  top: 145px;
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 44px;
+
+  display: flex;
+  align-items: center;
+
+  color: #000000;
+}
+
+.divTaskHeaderLineOne {
+  width: 196px;
+  height: 4.8px;
+  margin-top: 7px;
+  background: #ff7a00;
+}
+
+.divBoardAddSection form {
+  margin-top: 30px;
+}
+
+.divActiveTask input {
+  margin-top: 20px;
+  margin-left: 18px;
+  margin-bottom: 20px;
+  margin-right: 14px;
+}
+
+div.divBoardAddSection input {
+  width: 435px;
+  height: 60px;
+  border-radius: 10px;
+  border: none;
+  background: #e4e4e9;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.06))
+    drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+div.divBoardAddSection input:hover {
+  background: #e4e4e9;
+  transition: all 1s;
+}
+
+div.divBoardAddSection input:focus {
+  background: #7b7b7b;
+  transition: all 1s ease-in-out;
+}
+
+.divBoardAddSectionBody {
+  margin-left: 60px;
+}
+
+.divAddInput input {
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+.divButtonAdd,
+.divButtonClear {
+  border-radius: 5px;
+  border: none;
+  color: white;
+  font-size: 35px;
+}
+
+.divButtonAdd {
+  background-color: #3498ff;
+  margin-left: 15px;
+  margin-bottom: 2px;
+  vertical-align: middle;
+}
+
+.divButtonClear {
+  background-color: #e53225;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 2px;
+  vertical-align: middle;
+}
+
+.divButtonAdd i {
+  /* font-size: 1.2em; */
+  padding-right: 2px;
+  padding-top: 5px;
+  padding-bottom: 4px;
+  padding-left: 2px;
+}
+
+.divButtonClear i {
+  padding-right: 2px;
+  padding-top: 5px;
+  padding-bottom: 4px;
+  padding-left: 2px;
+}
+
+.divButtonAdd:hover {
+  background: rgb(47, 133, 204);
+  transition: all 1s;
+}
+
+.divButtonClear:hover {
+  background: rgb(180, 58, 58);
+  transition: all 1s;
+}
+
+::placeholder {
+  width: 200px;
+  height: 22px;
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+
+  display: flex;
+  align-items: center;
+  color: #7b7b7b;
+}
+
+div.divBoardAddSection textarea:focus,
+div.divBoardAddSection input:focus {
+  outline: none;
+  background: white;
+}
+
+div.divActiveTask {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  /* border: 1px solid black; */
+  width: 435px;
+  height: 60px;
+  border-radius: 10px;
+  background: white;
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+
+  display: flex;
+  align-items: center;
+}
+
+.ui.checkbox {
+  zoom: 1.4;
+}
+
+.divCompletedTasksSection {
+  width: 435px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  margin-right: 50px;
+  margin-bottom: 50px;
+}
+
+.divTaskHeaderLineTwo {
+  width: 224px;
+  height: 4.8px;
+  margin-top: 7px;
+  margin-bottom: 28px;
+  margin-left: 3px;
+  background: #2ab314;
+}
+
+.divCompletedTask {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  /* border: 1px solid black; */
+  width: 435px;
+  height: 60px;
+  border-radius: 10px;
+  background: white;
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+
+  display: flex;
+  align-items: center;
+  text-decoration: line-through;
+}
+
+.divCompletedTask span {
+  margin-left: 20px;
 }
