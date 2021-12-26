@@ -265,7 +265,7 @@ div.divBoardAddSection input:focus {
 
 .divButtonAdd {
   background-color: #3498ff;
-  margin-left: 15px;
+  margin-left: 18px;
   margin-bottom: 2px;
   vertical-align: middle;
 }
@@ -273,8 +273,8 @@ div.divBoardAddSection input:focus {
 .divButtonClear {
   background-color: #e53225;
   margin-right: 10px;
-  margin-left: 10px;
-  margin-bottom: 2px;
+  margin-left: 12px;
+  margin-bottom: 3px;
   vertical-align: middle;
 }
 
