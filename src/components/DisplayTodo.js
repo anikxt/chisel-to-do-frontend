@@ -31,7 +31,7 @@ const DisplayTodo = ({
   return (
     <div className="divActiveTask">
       <input
-        class="ui checkbox"
+        className="ui checkbox"
         type="checkbox"
         checked={todo.isComplete}
         onChange={() => handleToggleTodo(todo.id)}

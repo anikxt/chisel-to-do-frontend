@@ -7,13 +7,11 @@
 }
 
 .divButtonEdit {
-  /* background-color: #3498ff; */
   margin-left: auto;
   color: rgb(170, 168, 168);
 }
 
 .divButtonDelete {
-  /* background-color: #e53225; */
   margin-right: 10px;
   margin-left: 8px;
   color: rgb(170, 168, 168);
@@ -26,7 +24,6 @@
 }
 
 .divButtonEdit i {
-  /* font-size: 1.2em; */
   padding: 3px;
   padding-bottom: 4px;
   padding-left: 2px;
@@ -67,6 +64,9 @@
 .divEditTodo input {
   border: none;
   outline: none;
+  height: 40px;
+  border-radius: 5px;
+  padding-left: 12px;
 }
 
 .divEditTodo textarea:hover,

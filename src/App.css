@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #edf4ff;
-  box-sizing: border-box;
+  max-height: 900px;
 }
 
 .todoHeader {
