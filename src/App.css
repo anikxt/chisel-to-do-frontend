@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #edf4ff;
-  max-height: 900px;
+  max-height: 800px;
 }
 
 .todoHeader {
@@ -143,14 +143,21 @@ span.IconActiveState:hover {
   color: rgb(170, 168, 168);
   font-size: 18px;
   margin-left: 10px;
+  margin-right: 10px;
   vertical-align: middle;
-  padding: 5px 2px 5px 2px;
+  padding: -2px 2px 5px 2px;
 }
 
 .divDeleteBoardButton:hover {
   background-color: #e53225;
   color: white;
   transition: all 1s;
+}
+
+.divDeleteBoardButton i {
+  padding: 3px;
+  padding-bottom: 4px;
+  padding-left: 2px;
 }
 
 .fas.fa-plus {
@@ -363,7 +370,7 @@ div.divActiveTask {
 
   display: flex;
   align-items: center;
-  text-decoration: line-through;
+  /* text-decoration: line-through; */
 }
 
 .divCompletedTask span {

@@ -9,16 +9,27 @@ const DisplayTodo = ({
   showCompleteTodo,
 }) => {
   const [editTodo, setEditTodo] = useState(false);
+  const [todoName, setTodoName] = useState(todo.name);
+
+  function handleTodoChange(id, text) {
+    console.log(text);
+    setTodoName(text);
+    handleUpdateTodo(id, text);
+  }
 
   function handleSubmit(e) {
-    setEditTodo(false);
     e.preventDefault();
+    if (todoName === '') {
+      handleClearTodo(todo.id);
+      return;
+    }
+    setEditTodo(false);
   }
 
   if (!showCompleteTodo) {
     return (
       <div className="divCompletedTask">
-        <span>{todo.name}</span>
+        <span className="strikethrough">{todo.name}</span>
         <button
           className="divButtonRemove"
           onClick={() => handleClearTodo(todo.id)}
@@ -39,7 +50,7 @@ const DisplayTodo = ({
       {editTodo ? (
         <form className="divEditTodo" onSubmit={handleSubmit}>
           <input
-            onChange={(e) => handleUpdateTodo(todo.id, e.target.value)}
+            onChange={(e) => handleTodoChange(todo.id, e.target.value)}
             value={todo.name}
           />
         </form>

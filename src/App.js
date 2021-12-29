@@ -56,11 +56,6 @@ const App = () => {
           id: parseInt(id),
         },
       });
-      await axios.delete('http://localhost:1337/todo', {
-        data: {
-          id: parseInt(id),
-        },
-      });
       setBoards(newBoards);
     } catch (err) {
       console.log(err);
